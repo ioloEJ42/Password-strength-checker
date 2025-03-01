@@ -1,0 +1,296 @@
+:root {
+    --bg-color: #f5f5f5;
+    --device-bg: #e6e6e6;
+    --button-color: #ffffff;
+    --button-shadow: rgba(0, 0, 0, 0.1);
+    --display-bg: #000000;
+    --display-text: #ffffff;
+    --primary-color: #ff6600;
+    --secondary-color: #0066ff;
+    --text-color: #333333;
+    --meter-good: #00c800;
+    --meter-medium: #ffcc00;
+    --meter-bad: #ff0000;
+    --success-color: #00c800;
+    --fail-color: #ff3b30;
+    --panel-bg: #dddddd;
+    --item-border: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+}
+
+/* Main device panel */
+.card {
+    background-color: var(--device-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 12px;
+    grid-template-areas:
+        "disp disp disp disp disp disp disp disp"
+        "s-meter s-meter s-meter s-meter s-meter s-meter s-meter s-meter"
+        "i1 i1 i1 i1 i2 i2 i2 i2"
+        "rec rec rec rec rec rec rec rec";
+}
+
+h1 {
+    position: absolute;
+    top: -35px;
+    left: 0;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #222;
+    text-transform: uppercase;
+}
+
+/* Display screen */
+.password-container {
+    grid-area: disp;
+    background-color: var(--display-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    height: 90px;
+}
+
+.password-input-container {
+    flex: 3;
+    position: relative;
+    padding: 0;
+}
+
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--display-text);
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    padding: 10px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    z-index: 2;
+}
+
+/* Display visualization */
+.display-viz {
+    flex: 1;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #333;
+    padding: 8px;
+}
+
+.cow-icon {
+    color: #0066ff;
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.strength-number {
+    color: #ff6600;
+    font-family: 'Digital-7', 'Courier New', monospace;
+    font-size: 24px;
+}
+
+/* Strength meter styled like TE slider */
+.strength-meter {
+    grid-area: s-meter;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.meter-segment {
+    height: 40px;
+    flex: 1;
+    background-color: #ddd;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.meter-segment:nth-child(1), .meter-segment:nth-child(2), .meter-segment:nth-child(3) {
+    --meter-color: var(--meter-bad);
+}
+
+.meter-segment:nth-child(4), .meter-segment:nth-child(5), .meter-segment:nth-child(6) {
+    --meter-color: var(--meter-medium);
+}
+
+.meter-segment:nth-child(7), .meter-segment:nth-child(8), .meter-segment:nth-child(9), .meter-segment:nth-child(10) {
+    --meter-color: var(--meter-good);
+}
+
+/* Security Indicators - text based */
+.security-panel {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--panel-bg);
+}
+
+.criteria-panel {
+    grid-area: i1;
+}
+
+.pattern-panel {
+    grid-area: i2;
+}
+
+.panel-header {
+    background-color: #ccc;
+    color: #333;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid var(--item-border);
+}
+
+.criteria-list {
+    padding: 8px;
+}
+
+.criteria-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.criteria-item:last-child {
+    border-bottom: none;
+}
+
+.criteria-item i {
+    font-size: 12px;
+    color: var(--fail-color);
+    min-width: 16px;
+}
+
+.criteria-item i.fa-circle-check {
+    color: var(--success-color);
+}
+
+/* Terminal-style recommendations */
+.recommendations {
+    grid-area: rec;
+    background-color: #000;
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+}
+
+#recommendations-text {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #0f0;
+    white-space: pre-line;
+}
+
+/* Animated cursor effect */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#recommendations-text::after {
+    content: "_";
+    animation: blink 1s infinite;
+}
+
+/* Completely remove speaker dots */
+.speaker-dots {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 15px;
+        gap: 10px;
+        grid-template-areas:
+            "disp disp disp disp disp disp disp disp"
+            "s-meter s-meter s-meter s-meter s-meter s-meter s-meter s-meter"
+            "i1 i1 i1 i1 i1 i1 i1 i1"
+            "i2 i2 i2 i2 i2 i2 i2 i2"
+            "rec rec rec rec rec rec rec rec";
+    }
+    
+    h1 {
+        font-size: 12px;
+        top: -25px;
+    }
+    
+    .password-container {
+        height: 70px;
+    }
+    
+    input[type="password"],
+    input[type="text"] {
+        font-size: 16px;
+    }
+    
+    .security-panel {
+        width: 100%;
+    }
+    
+    .panel-header {
+        font-size: 11px;
+        padding: 6px;
+        min-height: 28px;
+    }
+    
+    .criteria-item {
+        font-size: 11px;
+        padding: 5px 6px;
+    }
+}

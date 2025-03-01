@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Password Strength Analyzer OP-PSA</h1>
+        <div class="card">
+            <!-- Display section with visualization -->
+            <div class="password-container">
+                <div class="password-input-container">
+                    <input type="password" id="password" placeholder="ENTER PASSWORD">
+                    <button id="toggle-password" type="button">
+                        <i class="fa-solid fa-eye" id="eye-icon"></i>
+                    </button>
+                </div>
+                <div class="display-viz">
+                    <i class="fa-solid fa-shield-halved cow-icon" id="viz-icon"></i>
+                    <div class="strength-number" id="strength-number">0</div>
+                </div>
+            </div>
+            
+            <!-- TE-style segmented meter -->
+            <div class="strength-meter">
+                <div class="meter-segment" data-value="10"></div>
+                <div class="meter-segment" data-value="20"></div>
+                <div class="meter-segment" data-value="30"></div>
+                <div class="meter-segment" data-value="40"></div>
+                <div class="meter-segment" data-value="50"></div>
+                <div class="meter-segment" data-value="60"></div>
+                <div class="meter-segment" data-value="70"></div>
+                <div class="meter-segment" data-value="80"></div>
+                <div class="meter-segment" data-value="90"></div>
+                <div class="meter-segment" data-value="100"></div>
+            </div>
+            
+            <!-- Security indicators panel 1 -->
+            <div class="criteria-panel security-panel">
+                <div class="panel-header">Basic Requirements</div>
+                <div class="criteria-list">
+                    <div class="criteria-item" id="length">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Length (8+ chars)</span>
+                    </div>
+                    <div class="criteria-item" id="uppercase">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Uppercase (A-Z)</span>
+                    </div>
+                    <div class="criteria-item" id="lowercase">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Lowercase (a-z)</span>
+                    </div>
+                    <div class="criteria-item" id="number">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Number (0-9)</span>
+                    </div>
+                    <div class="criteria-item" id="special">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Special (!@#$)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Security indicators panel 2 -->
+            <div class="pattern-panel security-panel">
+                <div class="panel-header">Security Checks</div>
+                <div class="criteria-list">
+                    <div class="criteria-item" id="common-password">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Not a common password</span>
+                    </div>
+                    <div class="criteria-item" id="repeated-chars">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>No repeated patterns (aaa)</span>
+                    </div>
+                    <div class="criteria-item" id="sequential-chars">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>No sequential chars (123)</span>
+                    </div>
+                    <div class="criteria-item" id="personal-info">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>No personal info</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recommendations terminal -->
+            <div class="recommendations">
+                <p id="recommendations-text">_ AWAITING INPUT...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="password-analyzer.js"></script>
+</body>
+</html>
