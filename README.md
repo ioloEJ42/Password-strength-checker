@@ -6,7 +6,7 @@ Built with vanilla html, css, js.
 
 ## Live Demo
 
-[Live Demo](https://your-username.github.io/password-strength-analyzer/)
+[Live Demo](https://pwd-checker.netlify.app/)
 
 ## Features
 
@@ -27,7 +27,7 @@ Built with vanilla html, css, js.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/password-strength-analyzer.git
+git clone https://github.com/ioloEJ42/Password-strength-checker
 ```
 
 2. Open the project folder:
@@ -52,7 +52,7 @@ http://YOUR_IP_ADDRESS:8000
 
 ## Screenshots
 
-(Screenshots coming soon)
+![Password Strength Analyzer Screenshot](./Screenshot.png)
 
 ## License
 
