@@ -1,6 +1,6 @@
-# Password Strength Analyzer (OP-PSA)
+# Password Strength Analyzer
 
-An obligatory quick security project - password strength analyzer, minimalistic UI, straight to the point, no nonsense.
+The obligatory security project anyone does - a password strength analyzer, with minimalistic UI, straight to the point, no nonsense.
 
 Built with vanilla html, css, js.
 
