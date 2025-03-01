@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM elements
     const passwordInput = document.getElementById('password');
     const toggleButton = document.getElementById('toggle-password');
     const eyeIcon = document.getElementById('eye-icon');
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const meterSegments = document.querySelectorAll('.meter-segment');
     const recommendationsText = document.getElementById('recommendations-text');
     
-    // Criteria elements
     const criteriaElements = {
         length: document.getElementById('length'),
         uppercase: document.getElementById('uppercase'),
@@ -21,14 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
         personalInfo: document.getElementById('personal-info')
     };
 
-    // Common passwords list (just a sample - in a real app, this should be more extensive)
     const commonPasswords = [
         'password', '123456', 'qwerty', 'admin', 'welcome', 
         'password123', 'abc123', 'letmein', '123456789', '12345678',
         'football', 'iloveyou', 'admin123', 'baseball', 'monkey'
     ];
 
-    // Sequential patterns to check
     const sequentialPatterns = [
         'abcdefghijklmnopqrstuvwxyz',
         'zyxwvutsrqponmlkjihgfedcba',
@@ -36,12 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
         '9876543210'
     ];
 
-    // Toggle password visibility
     toggleButton.addEventListener('click', function() {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
         
-        // Toggle eye icon
         if (type === 'password') {
             eyeIcon.classList.remove('fa-eye-slash');
             eyeIcon.classList.add('fa-eye');
@@ -51,13 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Analyze password on input
     passwordInput.addEventListener('input', analyzePassword);
 
     function analyzePassword() {
         const password = passwordInput.value;
         
-        // Reset all indicators
         resetIndicators();
         
         if (!password) {
@@ -66,31 +58,20 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Check basic criteria
         const criteriaResults = checkBasicCriteria(password);
-        
-        // Check for patterns
         const patternResults = checkPatterns(password);
-        
-        // Calculate overall strength (0-100)
         const strength = calculateOverallStrength(criteriaResults, patternResults);
-        
-        // Update the UI
         updateStrengthMeter(strength);
-        
-        // Generate recommendations
         generateRecommendations(password, criteriaResults, patternResults);
     }
 
     function resetIndicators() {
-        // Reset all criteria indicators
         for (const key in criteriaElements) {
             const element = criteriaElements[key];
             const icon = element.querySelector('i');
             icon.className = 'fa-solid fa-circle-xmark';
         }
         
-        // Reset meter segments
         meterSegments.forEach(segment => {
             const fillDiv = segment.querySelector('div');
             if (fillDiv) {
@@ -98,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Reset strength number
         strengthNumber.textContent = '0';
     }
 
@@ -111,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
             special: /[^A-Za-z0-9]/.test(password)
         };
         
-        // Update criteria indicators
         for (const key in results) {
             const element = criteriaElements[key];
             const icon = element.querySelector('i');
@@ -128,14 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function checkPatterns(password) {
         const lowercasePassword = password.toLowerCase();
-        
-        // Check if it's a common password
         const isCommon = commonPasswords.includes(lowercasePassword);
-        
-        // Check for repeated characters (3 or more of the same character in a row)
         const hasRepeatedChars = /(.)\1{2,}/.test(password);
         
-        // Check for sequential characters
         let hasSequentialChars = false;
         for (const pattern of sequentialPatterns) {
             for (let i = 0; i < pattern.length - 2; i++) {
@@ -148,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (hasSequentialChars) break;
         }
         
-        // Simple check for potential personal info patterns (simplified for demo)
         const hasPersonalInfo = /19\d{2}|20\d{2}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|admin|user|pass|pwd/i.test(password);
         
         const results = {
@@ -158,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
             personalInfo: !hasPersonalInfo
         };
         
-        // Update criteria indicators
         for (const key in results) {
             const element = criteriaElements[key];
             const icon = element.querySelector('i');
@@ -174,34 +146,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function calculateOverallStrength(criteriaResults, patternResults) {
-        // Basic criteria contribute 50% of the score
         const criteriaWeight = 0.5;
         const criteriaScore = Object.values(criteriaResults).filter(Boolean).length / Object.values(criteriaResults).length;
-        
-        // Pattern checks contribute 50% of the score
         const patternWeight = 0.5;
         const patternScore = Object.values(patternResults).filter(Boolean).length / Object.values(patternResults).length;
-        
-        // Calculate weighted score (0-100)
         return Math.round((criteriaScore * criteriaWeight + patternScore * patternWeight) * 100);
     }
 
     function updateStrengthMeter(strength) {
-        // Update the strength number in the display
         strengthNumber.textContent = strength;
-        
-        // Change the icon based on strength
         updateDisplayIcon(strength);
-        
-        // Update the meter segments
         updateMeterSegments(strength);
     }
     
     function updateDisplayIcon(strength) {
-        // Reset icon classes
         vizIcon.className = 'fa-solid cow-icon';
         
-        // Add appropriate icon based on strength
         if (strength < 40) {
             vizIcon.classList.add('fa-shield-halved');
             vizIcon.style.color = '#ff0000';
@@ -215,12 +175,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateMeterSegments(strength) {
-        // Fill the appropriate number of segments
         meterSegments.forEach(segment => {
             const segmentValue = parseInt(segment.getAttribute('data-value'));
             const fillHeight = strength >= segmentValue ? '100%' : '0%';
-            
-            // Get the fill div we created and update its height
             const fillDiv = segment.querySelector('div');
             if (fillDiv) {
                 fillDiv.style.height = fillHeight;
@@ -236,7 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const recommendations = [];
         
-        // Recommend based on failed basic criteria
         if (!criteriaResults.length) {
             recommendations.push('> MIN LENGTH: INCREASE TO 8+ CHARS');
         }
@@ -257,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
             recommendations.push('> SPECIAL: ADD [!@#$%^&*]');
         }
         
-        // Recommend based on failed pattern checks
         if (!patternResults.commonPassword) {
             recommendations.push('> COMMON PASSWORD DETECTED');
             recommendations.push('  USE UNIQUE COMBINATION');
@@ -278,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
             recommendations.push('  AVOID NAMES/DATES/COMMON WORDS');
         }
         
-        // General advice
         if (recommendations.length === 0) {
             recommendationsText.textContent = '> ANALYSIS COMPLETE\n> PASSWORD STRENGTH: EXCELLENT\n> USE UNIQUE PASSWORDS FOR DIFFERENT SERVICES';
         } else {
@@ -286,10 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Initialize the meter segments to properly show filling
     meterSegments.forEach(segment => {
-        // Apply the after pseudo-element height via JavaScript
-        // This is a workaround since we can't directly manipulate pseudo-elements with JS
         segment.style.position = 'relative';
         
         const fill = document.createElement('div');
@@ -299,13 +250,12 @@ document.addEventListener('DOMContentLoaded', function() {
         fill.style.width = '100%';
         fill.style.height = '0%';
         
-        // Set the correct color based on which segment this is
         if (parseInt(segment.getAttribute('data-value')) <= 30) {
-            fill.style.backgroundColor = '#ff0000'; // Red for first 3 segments
+            fill.style.backgroundColor = '#ff0000';
         } else if (parseInt(segment.getAttribute('data-value')) <= 60) {
-            fill.style.backgroundColor = '#ffcc00'; // Yellow for middle segments
+            fill.style.backgroundColor = '#ffcc00';
         } else {
-            fill.style.backgroundColor = '#00c800'; // Green for last segments
+            fill.style.backgroundColor = '#00c800';
         }
         
         fill.style.borderRadius = '4px';
